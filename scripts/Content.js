@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Button } from './Button';
 import { Socket } from './Socket';
+import { FBlogin } from './FBLogin';
 
 export class Content extends React.Component {
     constructor(props) {
@@ -29,14 +30,7 @@ export class Content extends React.Component {
         return (
             <div>
                 <h1 className="heading">Random numbers so far!</h1>
-                <div
-                 className="fb-login-button"
-                 data-max-rows="1"
-                 data-size="medium"
-                 data-show-faces="false"
-                 data-auto-logout-link="true">
-                 </div>
-
+                <FBlogin />
                 <Button />
                 <ul>{numbers}</ul>
             </div>
