@@ -20,13 +20,24 @@ export class Content extends React.Component {
         })
     }
 
+
     render() {
+        let temp = false;
+        
+        if (temp) {
+            
+            return (<h1> fail </h1>
+            );
+        }
+        else {
+        
         let numbers = this.state.numbers.map((n, index) =>
              <li key={index}>
                  <img src={n.picture} />
                  {n.name}: {n.number}
              </li>
         );
+    
         return (
             <div>
                 <h1 className="heading">Random numbers so far!</h1>
@@ -35,5 +46,7 @@ export class Content extends React.Component {
                 <ul>{numbers}</ul>
             </div>
         );
+        }
     }
 }
+

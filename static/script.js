@@ -13142,32 +13142,45 @@ var Content = exports.Content = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var numbers = this.state.numbers.map(function (n, index) {
+            var temp = false;
+
+            if (temp) {
+
                 return React.createElement(
-                    'li',
-                    { key: index },
-                    React.createElement('img', { src: n.picture }),
-                    n.name,
-                    ': ',
-                    n.number
-                );
-            });
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
                     'h1',
-                    { className: 'heading' },
-                    'Random numbers so far!'
-                ),
-                React.createElement(_FBLogin.FBlogin, null),
-                React.createElement(_Button.Button, null),
-                React.createElement(
-                    'ul',
                     null,
-                    numbers
-                )
-            );
+                    ' fail '
+                );
+            } else {
+
+                var numbers = this.state.numbers.map(function (n, index) {
+                    return React.createElement(
+                        'li',
+                        { key: index },
+                        React.createElement('img', { src: n.picture }),
+                        n.name,
+                        ': ',
+                        n.number
+                    );
+                });
+
+                return React.createElement(
+                    'div',
+                    null,
+                    React.createElement(
+                        'h1',
+                        { className: 'heading' },
+                        'Random numbers so far!'
+                    ),
+                    React.createElement(_FBLogin.FBlogin, null),
+                    React.createElement(_Button.Button, null),
+                    React.createElement(
+                        'ul',
+                        null,
+                        numbers
+                    )
+                );
+            }
         }
     }]);
 
@@ -13334,7 +13347,7 @@ var Button = exports.Button = function (_React$Component) {
             return React.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
-                React.createElement('input', { type: 'text', value: this.state.value, onChange: this.handleChange }),
+                React.createElement('input', { type: 'text', value: this.state.message, onChange: this.handleChange }),
                 React.createElement(
                     'button',
                     null,
