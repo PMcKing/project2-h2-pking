@@ -13143,8 +13143,11 @@ var Content = exports.Content = function (_React$Component) {
             var numbers = this.state.numbers.map(function (n, index) {
                 return React.createElement(
                     'li',
-                    { className: 'number-item', key: index },
-                    n
+                    { key: index },
+                    React.createElement('img', { src: n.picture }),
+                    n.name,
+                    ': ',
+                    n.number
                 );
             });
             return React.createElement(
@@ -13155,6 +13158,12 @@ var Content = exports.Content = function (_React$Component) {
                     { className: 'heading' },
                     'Random numbers so far!'
                 ),
+                React.createElement('div', {
+                    className: 'fb-login-button',
+                    'data-max-rows': '1',
+                    'data-size': 'medium',
+                    'data-show-faces': 'false',
+                    'data-auto-logout-link': 'true' }),
                 React.createElement(_Button.Button, null),
                 React.createElement(
                     'ul',
@@ -13300,10 +13309,14 @@ var Button = exports.Button = function (_React$Component) {
 
             var random = Math.floor(Math.random() * 100);
             console.log('Generated a random number: ', random);
-            _Socket.Socket.emit('new number', {
-                'number': random
+            FB.getLoginStatus(function (response) {
+                if (response.status == 'connected') {
+                    _Socket.Socket.emit('new number', {
+                        'facebook_user_token': response.authResponse.accessToken,
+                        'number': random
+                    });
+                }
             });
-            console.log('Sent up the random number to server!');
         }
     }, {
         key: 'render',

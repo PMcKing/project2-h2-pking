@@ -20,12 +20,23 @@ export class Content extends React.Component {
     }
 
     render() {
-        let numbers = this.state.numbers.map(
-            (n, index) => <li className="number-item" key={index}>{n}</li>
+        let numbers = this.state.numbers.map((n, index) =>
+             <li key={index}>
+                 <img src={n.picture} />
+                 {n.name}: {n.number}
+             </li>
         );
         return (
             <div>
                 <h1 className="heading">Random numbers so far!</h1>
+                <div
+                 className="fb-login-button"
+                 data-max-rows="1"
+                 data-size="medium"
+                 data-show-faces="false"
+                 data-auto-logout-link="true">
+                 </div>
+
                 <Button />
                 <ul>{numbers}</ul>
             </div>

@@ -8,10 +8,16 @@ export class Button extends React.Component {
 
         let random = Math.floor(Math.random() * 100);
         console.log('Generated a random number: ', random);
-        Socket.emit('new number', {
-            'number': random,
-        });
-        console.log('Sent up the random number to server!');
+        FB.getLoginStatus((response) => {
+             if (response.status == 'connected') {
+                 Socket.emit('new number', {
+                     'facebook_user_token':
+                        response.authResponse.accessToken,
+                     'number': random,
+                 });
+             }
+         });
+       
     }
 
     render() {
