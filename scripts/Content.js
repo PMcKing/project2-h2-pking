@@ -13,7 +13,7 @@ export class Content extends React.Component {
     }
 
     componentDidMount() {
-        Socket.on('all numbers', (data) => {
+        Socket.on('all messages', (data) => {
             this.setState({
                 'numbers': data['numbers']
             });

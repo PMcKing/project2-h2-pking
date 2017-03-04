@@ -13133,7 +13133,7 @@ var Content = exports.Content = function (_React$Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            _Socket.Socket.on('all numbers', function (data) {
+            _Socket.Socket.on('all messages', function (data) {
                 _this2.setState({
                     'numbers': data['numbers']
                 });
@@ -13293,10 +13293,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Button = exports.Button = function (_React$Component) {
     _inherits(Button, _React$Component);
 
-    function Button() {
+    function Button(props) {
         _classCallCheck(this, Button);
 
-        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+
+        _this.state = { message: 'enter message' }; //what the user types, their username, and profilepic
+
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
 
     _createClass(Button, [{
@@ -13304,16 +13310,23 @@ var Button = exports.Button = function (_React$Component) {
         value: function handleSubmit(event) {
             event.preventDefault();
 
+            var message = this.state.value;
+
             var random = Math.floor(Math.random() * 100);
             console.log('Generated a random number: ', random);
             FB.getLoginStatus(function (response) {
                 if (response.status == 'connected') {
                     _Socket.Socket.emit('new number', {
                         'facebook_user_token': response.authResponse.accessToken,
-                        'number': random
+                        'number': message
                     });
                 }
             });
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(event) {
+            this.setState({ value: event.target.value });
         }
     }, {
         key: 'render',
@@ -13321,10 +13334,11 @@ var Button = exports.Button = function (_React$Component) {
             return React.createElement(
                 'form',
                 { onSubmit: this.handleSubmit },
+                React.createElement('input', { type: 'text', value: this.state.value, onChange: this.handleChange }),
                 React.createElement(
                     'button',
                     null,
-                    'Send up a random number!'
+                    'Send message'
                 )
             );
         }
