@@ -30406,7 +30406,17 @@ var Loggins = exports.Loggins = function (_React$Component) {
         value: function handleSubmit(event) {
             event.preventDefault();
 
-            console.log("can log in");
+            FB.getLoginStatus(function (response) {
+                if (response.status == 'connected') {
+                    console.log("in");
+                    _Socket.Socket.emit('new user', {
+                        'facebook_user_token': response.authResponse.accessToken
+
+                    });
+                } else {
+                    console.log("out");
+                }
+            });
         }
     }, {
         key: 'handleChange',

@@ -13,8 +13,22 @@ export class Loggins extends React.Component {
     
     handleSubmit(event) {
         event.preventDefault();
+        
+         FB.getLoginStatus((response) => {
+             if (response.status == 'connected') {
+                 console.log("in");
+                 Socket.emit('new user', {
+                     'facebook_user_token':
+                        response.authResponse.accessToken,
+                     
+                 });
+             }
+             else{
+                 console.log("out");
+             }
+         });
 
-        console.log("can log in");
+       
     }
     handleChange(event) {
     this.setState({value: event.target.value});
