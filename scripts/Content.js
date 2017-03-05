@@ -3,13 +3,13 @@ import * as React from 'react';
 import { Button } from './Button';
 import { Socket } from './Socket';
 import { FBlogin } from './FBLogin';
+import { Loggins } from './logins';
 
 export class Content extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'numbers': [],
-            'all_users': []
+            'numbers': []
         };
     }
 
@@ -19,22 +19,19 @@ export class Content extends React.Component {
                 'numbers': data['numbers']
             });
         })
-         Socket.on('new user', (data) => {
-            this.setState({
-                'all_users': data['users']
-            });
-             
-         });
-        
     }
 
 
     render() {
-        let temp = false;
+        let loggedIn = false;
         
-        if (temp) {
-            
-            return (<h1> fail </h1>
+        if (!loggedIn) {
+                return (
+                        <div>
+                        <h1> Login Screen </h1>
+                        <FBlogin />
+                        <Loggins />
+                </div>
             );
         }
         else {

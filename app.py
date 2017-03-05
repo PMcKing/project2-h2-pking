@@ -7,21 +7,14 @@ import requests
 app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 
-
-
 @app.route('/')
 def hello():
     return flask.render_template('index.html')
 
-
-connected_users = []
-
 @socketio.on('connect')
 def on_connect():
     print 'Someone connected!'
-    socketio.emit('new user', {
-        'users': connected_users
-    })
+    
 
 @socketio.on('disconnect')
 def on_disconnect():
