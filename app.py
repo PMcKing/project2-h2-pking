@@ -7,6 +7,9 @@ import requests
 app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 
+all_messages = []
+connected_users = []
+
 @app.route('/')
 def hello():
     return flask.render_template('index.html')
@@ -20,7 +23,6 @@ def on_connect():
 def on_disconnect():
     print 'Someone disconnected!'
 
-all_messages = []
 
 @socketio.on('new number')
 def on_new_number(data):
@@ -37,6 +39,21 @@ def on_new_number(data):
     socketio.emit('all messages', {
         'numbers': all_messages
     })
+    
+@socketio.on('new user')
+def on_new_user(data):
+    response = requests.get('https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cpicture&access_token=' + data['facebook_user_token'])
+    json = response.json() 
+    
+    connected_users.append({
+        'name': json['name'],
+        'picture': json['picture']['data']['url']
+    })
+    
+    socketio.emit('all users', {
+        'users': all_messages
+    })
+    
     
     
 if __name__ == '__main__':
