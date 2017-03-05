@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { Socket } from './Socket';
 import { FBlogin } from './FBLogin';
 import { Loggins } from './logins';
+import { AllUsers } from './AllUsers';
 
 export class Content extends React.Component {
     constructor(props) {
@@ -25,7 +26,11 @@ export class Content extends React.Component {
     render() {
         let loggedIn = false;
         
-        if (!loggedIn) {
+        //remove later
+        
+        
+        
+        if (loggedIn) {
                 return (
                         <div>
                         <h1> Login Screen </h1>
@@ -45,6 +50,13 @@ export class Content extends React.Component {
     
         return (
             <div>
+                     <div>
+                            <h1> Login Screen </h1>
+                            <Loggins />
+                    </div>
+            
+            
+                <AllUsers />
                 <h1 className="heading">Random numbers so far!</h1>
                 <FBlogin />
                 <Button />

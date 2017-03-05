@@ -12,19 +12,23 @@ export class AllUsers extends React.Component {
  
   }
    componentDidMount() {
-        Socket.on('all users', (data) => {
+        Socket.on('all users',(data) => {
             this.setState({
                 'users': data['users']
             });
+           console.log(this.state.users)
         })
+       
     }
     
     
     render() {
+         //console.log(this.state.users)
+           
         let all_users = this.state.users.map((n, index) =>
             <li key = {index} >
               <img src={n.picture} />
-              {n.name}:
+                {n.name}
               </li>
         
         );

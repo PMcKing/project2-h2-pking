@@ -45,13 +45,15 @@ def on_new_user(data):
     response = requests.get('https://graph.facebook.com/v2.8/me?fields=id%2Cname%2Cpicture&access_token=' + data['facebook_user_token'])
     json = response.json() 
     
+  
     connected_users.append({
         'name': json['name'],
         'picture': json['picture']['data']['url']
     })
-    
+   
+    print(connected_users);
     socketio.emit('all users', {
-        'users': all_messages
+        'users': connected_users
     })
     
     
