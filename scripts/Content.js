@@ -6,12 +6,15 @@ import { FBlogin } from './FBLogin';
 import { Loggins } from './logins';
 import { AllUsers } from './AllUsers';
 
+var LoggedIn = false; //gloabl 
 export class Content extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'numbers': []
+            'numbers': [],
+            
         };
+       
     }
 
     componentDidMount() {
@@ -19,6 +22,10 @@ export class Content extends React.Component {
             this.setState({
                 'numbers': data['numbers']
             });
+        })
+        Socket.on('Logged In', (data) => {
+            LoggedIn = data['LoggedIn']
+            
         })
     }
 

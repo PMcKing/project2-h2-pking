@@ -13118,6 +13118,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var LoggedIn = false; //gloabl 
+
 var Content = exports.Content = function (_React$Component) {
     _inherits(Content, _React$Component);
 
@@ -13128,7 +13130,9 @@ var Content = exports.Content = function (_React$Component) {
 
         _this.state = {
             'numbers': []
+
         };
+
         return _this;
     }
 
@@ -13141,6 +13145,9 @@ var Content = exports.Content = function (_React$Component) {
                 _this2.setState({
                     'numbers': data['numbers']
                 });
+            });
+            _Socket.Socket.on('Logged In', function (data) {
+                LoggedIn = data['LoggedIn'];
             });
         }
     }, {
@@ -13573,8 +13580,8 @@ var Loggins = exports.Loggins = function (_React$Component) {
                 if (response.status == 'connected') {
                     console.log("in");
                     _Socket.Socket.emit('new user', {
-                        'facebook_user_token': response.authResponse.accessToken
-
+                        'facebook_user_token': response.authResponse.accessToken,
+                        'LoggedIn': true
                     });
                 } else {
                     console.log("out");

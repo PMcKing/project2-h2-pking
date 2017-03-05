@@ -9,6 +9,7 @@ socketio = flask_socketio.SocketIO(app)
 
 all_messages = []
 connected_users = []
+LoggedIn = False #used to decide if log in page or chat is displayer
 
 @app.route('/')
 def hello():
@@ -54,6 +55,11 @@ def on_new_user(data):
     print(connected_users);
     socketio.emit('all users', {
         'users': connected_users
+    })
+    
+    LoggedIn = True
+    socketio.emit('Logged In', {
+        'LoggedIn': LoggedIn
     })
     
     

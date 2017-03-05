@@ -20,7 +20,7 @@ export class Loggins extends React.Component {
                  Socket.emit('new user', {
                      'facebook_user_token':
                         response.authResponse.accessToken,
-                     
+                     'LoggedIn': true
                  });
              }
              else{
